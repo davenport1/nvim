@@ -2,6 +2,33 @@
 -- This will avoid an annoying layout shift in the screen
 vim.opt.signcolumn = 'yes'
 
+
+require('lspconfig').rust_analyzer.setup({
+  settings = {
+    ["rust-analyzer"] = {
+      -- Check code using `clippy` when saving files
+      checkOnSave = {
+        command = "clippy",
+      },
+      -- Enable procedural macros
+      procMacro = {
+        enable = true,
+      },
+      -- Enable all features in Cargo.toml
+      cargo = {
+        allFeatures = true,
+      },
+      -- Customize diagnostics behavior
+      diagnostics = {
+        enable = true,
+        experimental = {
+          enable = false, -- Disable experimental diagnostics to avoid instability
+        },
+      },
+    },
+  },
+})
+
 -- Add cmp_nvim_lsp capabilities settings to lspconfig
 -- This should be executed before you configure any language server
 local lspconfig_defaults = require('lspconfig').util.default_config
